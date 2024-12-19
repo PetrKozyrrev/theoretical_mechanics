@@ -50,7 +50,7 @@ X_U = np.linspace(0, 1, K)
 fig = plt.figure(figsize=[12, 7])
 ax = fig.add_subplot(1, 1, 1)
 ax.axis('equal')
-ax.set(xlim=[-20, 20], ylim=[-20, 20])
+ax.set(xlim=[-20, 20], ylim=[-20, 5])
 
 Kernel = ax.plot([0, Kernel_x[0]], [0, Kernel_y[0]], linewidth=5, color="#7ED7C1")[0]
 ax.plot([0, 0], [-20, 20], "k--")
