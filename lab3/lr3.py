@@ -24,18 +24,18 @@ Steps = 1001
 t_fin = 20
 t = np.linspace(0, t_fin, Steps)
 
-l_kernel = 20  # длина стержня
-s_0 = 8  # длина O-О1
-P_1 = 0.1  # вес стержня
-P = 0.1  # вес колечка
-l = 0.5  # длина недеформированной пружины
+l_kernel = 6  # длина стержня
+s_0 = 2  # длина O-О1
+P_1 = 10 # вес стержня
+P = 20  # вес колечка
+l = 5  # длина недеформированной пружины
 c = 200  # жесткость пружины
 g = 9.81  # ускорение свободного падения
-nu = 1  # трение
+nu = 2  # трение
 phi_0 = math.pi/10  # начальный угол
 S_0 = 0  # начальная длина пружины
-dphi_0 = 0
-dS_0 = 0
+dphi_0 = 1
+dS_0 = 2
 
 y0 = [S_0, phi_0, dS_0, dphi_0]
 
@@ -58,7 +58,7 @@ Kernel_y = (-1) * l_kernel * np.cos(phi)
 
 SprX_0 = 4
 K = 19
-Sh = 0.3
+Sh = 0.1
 b = 1 / (K - 2)
 X_Spr = np.zeros(K)
 Y_Spr = np.zeros(K)
@@ -95,7 +95,7 @@ ax_for_graphs.grid(True)
 fig = plt.figure(figsize=[12, 7])
 ax = fig.add_subplot(1, 1, 1)
 ax.axis('equal')
-ax.set(xlim=[-20, 20], ylim=[-30, 10])
+ax.set(xlim=[-7, 7], ylim=[-10, 3])
 
 Kernel = ax.plot([0, Kernel_x[0]], [0, Kernel_y[0]], linewidth=5, color="#7ED7C1")[0]
 ax.plot([0, 0], [-20, 20], "k--")
@@ -112,15 +112,12 @@ Drawed_Spring = ax.plot(X_Spr + X_U * np.sin(phi)[0] * (s_0 * s[0])+np.sin(phi)[
 
 
 def anima(i):
-    if s[i] < 0:
-        tmp = -1
-    else:
-        tmp = 1
 
-    Point_M.set_data([M_x[i] * tmp], [M_y[i]*tmp])
+
+    Point_M.set_data([M_x[i]], [M_y[i]])
     Kernel.set_data([0, Kernel_x[i]], [0, Kernel_y[i]])
 
-    Drawed_Spring.set_data((X_Spr + X_U * np.sin(phi)[i]*(s_0 * s[i])+np.sin(phi)[i]*s_0*X_U)*tmp, Y_Spr * L_Spr[i]*tmp)
+    Drawed_Spring.set_data((X_Spr + X_U * np.sin(phi)[i]*(s_0 * s[i])+np.sin(phi)[i]*s_0*X_U), Y_Spr * L_Spr[i])
 
     return [Point_M, Kernel, Drawed_Spring]
 
